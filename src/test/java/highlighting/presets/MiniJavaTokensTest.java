@@ -11,244 +11,238 @@ import org.junit.jupiter.api.Test;
 
 class MiniJavaTokensTest {
 
-    @Test
-    void stringLiteralShouldMatchSimpleString() {
-        // given
-        Token stringToken =
-            Token.of(
-                Pattern.compile("\"([^\"\\\\]|\\\\.)*\""),
-                MiniJavaColours.STRING_LITERAL_COLOUR);
+  @Test
+  void stringLiteralShouldMatchSimpleString() {
+    // given
+    Token stringToken =
+        Token.of(Pattern.compile("\"([^\"\\\\]|\\\\.)*\""), MiniJavaColours.STRING_LITERAL_COLOUR);
 
-        String text = "String name = \"Max\";";
+    String text = "String name = \"Max\";";
 
-        // when
-        List<HighlightRegion> regions = stringToken.test(text);
+    // when
+    List<HighlightRegion> regions = stringToken.test(text);
 
-        // then
-        assertEquals(1, regions.size());
-        assertEquals(
-            new HighlightRegion(14, 19, MiniJavaColours.STRING_LITERAL_COLOUR),
-            regions.get(0));
-    }
+    // then
+    assertEquals(1, regions.size());
+    assertEquals(
+        new HighlightRegion(14, 19, MiniJavaColours.STRING_LITERAL_COLOUR), regions.get(0));
+  }
 
-    @Test
-    void stringLiteralShouldMatchEmptyString() {
-        // given
-        Token stringToken =
-            Token.of(
-                Pattern.compile("\"([^\"\\\\]|\\\\.)*\""),
-                MiniJavaColours.STRING_LITERAL_COLOUR);
+  @Test
+  void stringLiteralShouldMatchEmptyString() {
+    // given
+    Token stringToken =
+        Token.of(Pattern.compile("\"([^\"\\\\]|\\\\.)*\""), MiniJavaColours.STRING_LITERAL_COLOUR);
 
-        String text = "String empty = \"\";";
+    String text = "String empty = \"\";";
 
-        // when
-        List<HighlightRegion> regions = stringToken.test(text);
+    // when
+    List<HighlightRegion> regions = stringToken.test(text);
 
-        // then
-        assertEquals(1, regions.size());
-        assertEquals(
-            new HighlightRegion(15, 17, MiniJavaColours.STRING_LITERAL_COLOUR),
-            regions.get(0));
-    }
+    // then
+    assertEquals(1, regions.size());
+    assertEquals(
+        new HighlightRegion(15, 17, MiniJavaColours.STRING_LITERAL_COLOUR), regions.get(0));
+  }
 
-    @Test
-    void stringLiteralShouldMatchEscapedQuotes() {
-        // given
-        Token stringToken =
-            Token.of(
-                Pattern.compile("\"([^\"\\\\]|\\\\.)*\""),
-                MiniJavaColours.STRING_LITERAL_COLOUR);
+  @Test
+  void stringLiteralShouldMatchEscapedQuotes() {
+    // given
+    Token stringToken =
+        Token.of(Pattern.compile("\"([^\"\\\\]|\\\\.)*\""), MiniJavaColours.STRING_LITERAL_COLOUR);
 
-        String text = "String quote = \"Hallo \\\"Max\\\"\";";
+    String text = "String quote = \"Hallo \\\"Max\\\"\";";
 
-        // when
-        List<HighlightRegion> regions = stringToken.test(text);
+    // when
+    List<HighlightRegion> regions = stringToken.test(text);
 
-        // then
-        assertEquals(1, regions.size());
-        assertEquals(
-            new HighlightRegion(15, 30, MiniJavaColours.STRING_LITERAL_COLOUR),
-            regions.get(0));
-    }
+    // then
+    assertEquals(1, regions.size());
+    assertEquals(
+        new HighlightRegion(15, 30, MiniJavaColours.STRING_LITERAL_COLOUR), regions.get(0));
+  }
 
-    @Test
-    void stringLiteralShouldNotMatchUnclosedString() {
-        // given
-        Token stringToken =
-            Token.of(
-                Pattern.compile("\"([^\"\\\\]|\\\\.)*\""),
-                MiniJavaColours.STRING_LITERAL_COLOUR);
+  @Test
+  void stringLiteralShouldNotMatchUnclosedString() {
+    // given
+    Token stringToken =
+        Token.of(Pattern.compile("\"([^\"\\\\]|\\\\.)*\""), MiniJavaColours.STRING_LITERAL_COLOUR);
 
-        String text = "String broken = \"Hallo;";
+    String text = "String broken = \"Hallo;";
 
-        // when
-        List<HighlightRegion> regions = stringToken.test(text);
+    // when
+    List<HighlightRegion> regions = stringToken.test(text);
 
-        // then
-        assertTrue(regions.isEmpty());
-    }
+    // then
+    assertTrue(regions.isEmpty());
+  }
 
-    @Test
-    void charLiteralShouldMatchSimpleCharacter() {
-        // given
-        Token charToken =
-            Token.of(
-                Pattern.compile("'([^'\\\\]|\\\\.)'"),
-                MiniJavaColours.CHAR_LITERAL_COLOUR);
+  @Test
+  void charLiteralShouldMatchSimpleCharacter() {
+    // given
+    Token charToken =
+        Token.of(Pattern.compile("'([^'\\\\]|\\\\.)'"), MiniJavaColours.CHAR_LITERAL_COLOUR);
 
-        String text = "char c = 'x';";
+    String text = "char c = 'x';";
 
-        // when
-        List<HighlightRegion> regions = charToken.test(text);
+    // when
+    List<HighlightRegion> regions = charToken.test(text);
 
-        // then
-        assertEquals(1, regions.size());
-        assertEquals(
-            new HighlightRegion(9, 12, MiniJavaColours.CHAR_LITERAL_COLOUR),
-            regions.get(0));
-    }
+    // then
+    assertEquals(1, regions.size());
+    assertEquals(new HighlightRegion(9, 12, MiniJavaColours.CHAR_LITERAL_COLOUR), regions.get(0));
+  }
 
-    @Test
-    void charLiteralShouldMatchEscapedCharacter() {
-        // given
-        Token charToken =
-            Token.of(
-                Pattern.compile("'([^'\\\\]|\\\\.)'"),
-                MiniJavaColours.CHAR_LITERAL_COLOUR);
+  @Test
+  void charLiteralShouldMatchEscapedCharacter() {
+    // given
+    Token charToken =
+        Token.of(Pattern.compile("'([^'\\\\]|\\\\.)'"), MiniJavaColours.CHAR_LITERAL_COLOUR);
 
-        String text = "char lineBreak = '\\n';";
+    String text = "char lineBreak = '\\n';";
 
-        // when
-        List<HighlightRegion> regions = charToken.test(text);
+    // when
+    List<HighlightRegion> regions = charToken.test(text);
 
-        // then
-        assertEquals(1, regions.size());
-        assertEquals(
-            new HighlightRegion(17, 21, MiniJavaColours.CHAR_LITERAL_COLOUR),
-            regions.get(0));
-    }
+    // then
+    assertEquals(1, regions.size());
+    assertEquals(new HighlightRegion(17, 21, MiniJavaColours.CHAR_LITERAL_COLOUR), regions.get(0));
+  }
 
-    @Test
-    void lineCommentShouldMatchUntilLineEnd() {
-        // given
-        Token lineCommentToken =
-            Token.of(
-                Pattern.compile("//.*"),
-                MiniJavaColours.LINE_COMMENT_COLOUR);
+  @Test
+  void lineCommentShouldMatchUntilLineEnd() {
+    // given
+    Token lineCommentToken = Token.of(Pattern.compile("//.*"), MiniJavaColours.LINE_COMMENT_COLOUR);
 
-        String text = "int x; // return class";
+    String text = "int x; // return class";
 
-        // when
-        List<HighlightRegion> regions = lineCommentToken.test(text);
+    // when
+    List<HighlightRegion> regions = lineCommentToken.test(text);
 
-        // then
-        assertEquals(1, regions.size());
-        assertEquals(
-            new HighlightRegion(7, 22, MiniJavaColours.LINE_COMMENT_COLOUR),
-            regions.get(0));
-    }
+    // then
+    assertEquals(1, regions.size());
+    assertEquals(new HighlightRegion(7, 22, MiniJavaColours.LINE_COMMENT_COLOUR), regions.get(0));
+  }
 
-    @Test
-    void javadocCommentShouldMatchAcrossMultipleLines() {
-        // given
-        Token javadocToken =
-            Token.of(
-                Pattern.compile("/\\*\\*[\\s\\S]*?\\*/"),
-                MiniJavaColours.JAVADOC_COMMENT_COLOUR);
+  @Test
+  void javadocCommentShouldMatchAcrossMultipleLines() {
+    // given
+    Token javadocToken =
+        Token.of(Pattern.compile("/\\*\\*[\\s\\S]*?\\*/"), MiniJavaColours.JAVADOC_COMMENT_COLOUR);
 
-        String text = "/**\n * docs\n */";
+    String text = "/**\n * docs\n */";
 
-        // when
-        List<HighlightRegion> regions = javadocToken.test(text);
+    // when
+    List<HighlightRegion> regions = javadocToken.test(text);
 
-        // then
-        assertEquals(1, regions.size());
-        assertEquals(
-            new HighlightRegion(0, 15, MiniJavaColours.JAVADOC_COMMENT_COLOUR),
-            regions.get(0));
-    }
+    // then
+    assertEquals(1, regions.size());
+    assertEquals(
+        new HighlightRegion(0, 15, MiniJavaColours.JAVADOC_COMMENT_COLOUR), regions.get(0));
+  }
 
-    @Test
-    void blockCommentShouldMatchAcrossMultipleLines() {
-        // given
-        Token blockCommentToken =
-            Token.of(
-                Pattern.compile("/\\*[\\s\\S]*?\\*/"),
-                MiniJavaColours.BLOCK_COMMENT_COLOUR);
+  @Test
+  void blockCommentShouldMatchAcrossMultipleLines() {
+    // given
+    Token blockCommentToken =
+        Token.of(Pattern.compile("/\\*[\\s\\S]*?\\*/"), MiniJavaColours.BLOCK_COMMENT_COLOUR);
 
-        String text = "a /* hello\nworld */ b";
+    String text = "a /* hello\nworld */ b";
 
-        // when
-        List<HighlightRegion> regions = blockCommentToken.test(text);
+    // when
+    List<HighlightRegion> regions = blockCommentToken.test(text);
 
-        // then
-        assertEquals(1, regions.size());
-        assertEquals(
-            new HighlightRegion(2, 19, MiniJavaColours.BLOCK_COMMENT_COLOUR),
-            regions.get(0));
-    }
+    // then
+    assertEquals(1, regions.size());
+    assertEquals(new HighlightRegion(2, 19, MiniJavaColours.BLOCK_COMMENT_COLOUR), regions.get(0));
+  }
 
-    @Test
-    void keywordShouldMatchWholeWordsOnly() {
-        // given
-        Token keywordToken =
-            Token.of(
-                Pattern.compile("\\b(package|import|class|public|private|final|return|null|new)\\b"),
-                MiniJavaColours.KEYWORD_COLOUR);
+  @Test
+  void keywordShouldMatchWholeWordsOnly() {
+    // given
+    Token keywordToken =
+        Token.of(
+            Pattern.compile("\\b(package|import|class|public|private|final|return|null|new)\\b"),
+            MiniJavaColours.KEYWORD_COLOUR);
 
-        String text = "public class Auto classification";
+    String text = "public class Auto classification";
 
-        // when
-        List<HighlightRegion> regions = keywordToken.test(text);
+    // when
+    List<HighlightRegion> regions = keywordToken.test(text);
 
-        // then
-        assertEquals(2, regions.size());
-        assertEquals(
-            new HighlightRegion(0, 6, MiniJavaColours.KEYWORD_COLOUR),
-            regions.get(0));
-        assertEquals(
-            new HighlightRegion(7, 12, MiniJavaColours.KEYWORD_COLOUR),
-            regions.get(1));
-    }
+    // then
+    assertEquals(2, regions.size());
+    assertEquals(new HighlightRegion(0, 6, MiniJavaColours.KEYWORD_COLOUR), regions.get(0));
+    assertEquals(new HighlightRegion(7, 12, MiniJavaColours.KEYWORD_COLOUR), regions.get(1));
+  }
 
-    @Test
-    void annotationShouldMatchAtSymbolWithLetters() {
-        // given
-        Token annotationToken =
-            Token.of(
-                Pattern.compile("@[A-Za-z-]+"),
-                MiniJavaColours.ANNOTATION_COLOUR);
+  @Test
+  void annotationShouldMatchAtSymbolWithLetters() {
+    // given
+    Token annotationToken =
+        Token.of(Pattern.compile("@[A-Za-z-]+"), MiniJavaColours.ANNOTATION_COLOUR);
 
-        String text = "@Override\n  @Test";
+    String text = "@Override\n  @Test";
 
-        // when
-        List<HighlightRegion> regions = annotationToken.test(text);
+    // when
+    List<HighlightRegion> regions = annotationToken.test(text);
 
-        // then
-        assertEquals(2, regions.size());
-        assertEquals(
-            new HighlightRegion(0, 9, MiniJavaColours.ANNOTATION_COLOUR),
-            regions.get(0));
-        assertEquals(
-            new HighlightRegion(12, 17, MiniJavaColours.ANNOTATION_COLOUR),
-            regions.get(1));
-    }
-    @Test
-    void keywordShouldMatchAtStartMiddleAndEnd() {
-        // given
-        Token keywordToken =
-            Token.of(
-                Pattern.compile("\\b(package|import|class|public|private|final|return|null|new)\\b"),
-                MiniJavaColours.KEYWORD_COLOUR);
+    // then
+    assertEquals(2, regions.size());
+    assertEquals(new HighlightRegion(0, 9, MiniJavaColours.ANNOTATION_COLOUR), regions.get(0));
+    assertEquals(new HighlightRegion(12, 17, MiniJavaColours.ANNOTATION_COLOUR), regions.get(1));
+  }
 
-        String text = "public Auto return";
+  @Test
+  void keywordShouldMatchAtStartMiddleAndEnd() {
+    // given
+    Token keywordToken =
+        Token.of(
+            Pattern.compile("\\b(package|import|class|public|private|final|return|null|new)\\b"),
+            MiniJavaColours.KEYWORD_COLOUR);
 
-        // when
-        List<HighlightRegion> regions = keywordToken.test(text);
+    String text = "public Auto return";
 
-        // then
-        assertEquals(2, regions.size());
-        assertEquals(new HighlightRegion(0, 6, MiniJavaColours.KEYWORD_COLOUR), regions.get(0));
-        assertEquals(new HighlightRegion(12, 18, MiniJavaColours.KEYWORD_COLOUR), regions.get(1));
-    }
+    // when
+    List<HighlightRegion> regions = keywordToken.test(text);
+
+    // then
+    assertEquals(2, regions.size());
+    assertEquals(new HighlightRegion(0, 6, MiniJavaColours.KEYWORD_COLOUR), regions.get(0));
+    assertEquals(new HighlightRegion(12, 18, MiniJavaColours.KEYWORD_COLOUR), regions.get(1));
+  }
+
+  @Test
+  void stringLiteralShouldMatchTextContainingLineCommentSymbols() {
+    // given
+    Token stringToken =
+        Token.of(Pattern.compile("\"([^\"\\\\]|\\\\.)*\""), MiniJavaColours.STRING_LITERAL_COLOUR);
+
+    String text = "String url = \"https://testung.com\";";
+
+    // when
+    List<HighlightRegion> regions = stringToken.test(text);
+
+    // then
+    assertEquals(1, regions.size());
+    assertEquals(
+        new HighlightRegion(13, 34, MiniJavaColours.STRING_LITERAL_COLOUR), regions.get(0));
+  }
+
+  @Test
+  void stringLiteralShouldMatchTextContainingBlockCommentSymbols() {
+    // given
+    Token stringToken =
+        Token.of(Pattern.compile("\"([^\"\\\\]|\\\\.)*\""), MiniJavaColours.STRING_LITERAL_COLOUR);
+
+    String text = "String text = \"not /* a comment */\";";
+
+    // when
+    List<HighlightRegion> regions = stringToken.test(text);
+
+    // then
+    assertEquals(1, regions.size());
+    assertEquals(
+        new HighlightRegion(14, 33, MiniJavaColours.STRING_LITERAL_COLOUR), regions.get(0));
+  }
 }
