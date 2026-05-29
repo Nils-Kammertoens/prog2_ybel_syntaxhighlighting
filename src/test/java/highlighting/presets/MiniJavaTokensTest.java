@@ -243,6 +243,6 @@ class MiniJavaTokensTest {
     // then
     assertEquals(1, regions.size());
     assertEquals(
-        new HighlightRegion(14, 33, MiniJavaColours.STRING_LITERAL_COLOUR), regions.get(0));
+        new HighlightRegion(14, 35, MiniJavaColours.STRING_LITERAL_COLOUR), regions.get(0));
   }
 }
