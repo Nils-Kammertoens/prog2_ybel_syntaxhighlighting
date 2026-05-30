@@ -20,7 +20,6 @@ public final class MiniJavaTokens {
         Token.of(Pattern.compile("'([^'\\\\]|\\\\.)'"), MiniJavaColours.CHAR_LITERAL_COLOUR),
         // Keywords
         Token.of(
-           Token.of(
             Pattern.compile(
                 "\\b(abstract|assert|boolean|break|byte|case|catch|char|class|const|continue"
                     + "|default|do|double|else|enum|extends|final|finally|float|for|goto|if"
